@@ -1,0 +1,73 @@
+body {
+
+    background-color: bisque ;
+}
+
+
+.header {
+    color: green;
+    font-size: 400%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+
+#underHeader {
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+
+}
+
+.input {
+    color: white;
+    background-color: black;
+    margin-right: 20px;
+    font-size: xx-large;
+}
+
+.searchBtn {
+    color: white;
+    border-radius: 30px;
+    background-color: black;
+    font-size: 150%;
+    
+}
+
+
+#under {
+    width: 525px;
+    font-size: 120%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-left: 500px;
+}
+
+
+.myCard {
+    
+    margin: 30px auto 20px auto;
+    width: 1300px;
+}
+
+
+
+
+
+#card {
+
+
+    margin: 40px auto 20px auto;
+    width: 1300px;
+}
+
+
+
