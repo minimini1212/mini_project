@@ -3,7 +3,7 @@ const input = document.querySelector(".input");
 const card = document.querySelector("#card");
 const under = document.querySelector("#under");
 
-let movieinfo = [];
+let movieInfo = [];
 let title = []; 
 
 // fetch 옵션
@@ -12,11 +12,10 @@ const options = {
     headers: {
     accept: 'application/json',
     Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMGY3ZWNlZmNlOGE5OTkzMjcxNjgzYTNmOWU4YWRlNyIsInN1YiI6IjY1MmYzNDA4YTgwMjM2MDBmZDJkNDlmMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.1rrCh0VRmKqEgle1KUg65DcMvhupvRf-ZPyDLm_5-DA'
-  }
+    }
 };
 
-
-//포스터 붙이기
+// 포스터 붙이기
 async function movieList() {
   const response = await fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
   const jsonData = await response.json();
@@ -24,60 +23,53 @@ async function movieList() {
 
   result.forEach((num) => {
    
-  movieinfo.push(num);
+  movieInfo.push(num);
   title.push(num['title']);
   
   // 영화 목록 출력 함수 호출
   attach(num);
   })
 
+  // ID값 출력 함수 호출
   ID();
 }
 movieList()
 
-
-
 .then(()=> {
-  //검색하기
+  // 검색하기
   searchBtn.addEventListener("click", () => {
   movieSearch(input.value);
   list(input.value);
   })
 
+  // 검색 인풋으로 관련 영화 출력하기
+  function movieSearch(userInput) { 
+    card.innerHTML = ``;
+    movieInfo.forEach(function (info) {
+        if(info['title'].toLowerCase().includes(userInput.toLowerCase())){
+          // 영화 목록 출력 함수 호출
+          attach(info);
+        }
+    })
 
-  //검색 인풋으로 관련 영화 출력하기
-   function movieSearch(userinput) { 
-     card.innerHTML = ``;
-      movieinfo.forEach(function (info) {
-          if(info['title'].toLowerCase().includes(userinput.toLowerCase())){
-            // 영화 목록 출력 함수 호출
-            attach(info);
-          }
-      })
-
-  
+    // ID값 출력 함수 호출
     ID();
-   }
-
-  
+  }
 })
 .catch((err) => console.error(err));
 
-
-
 // 검색 리스트 출력
-function list(userinput) {
+function list(userInput) {
   under.innerHTML = ``;
   
   let p = document.createElement('p');
   under.appendChild(p);
 
-     let c= title.filter((word) => {
-            return word.toLowerCase().includes(userinput.toLowerCase());
-            })
-  p.append(`영화리스트 : ${c}`);
+  let extract= title.filter((word) => {
+      return word.toLowerCase().includes(userInput.toLowerCase());
+      })
+  p.append(`영화리스트 : ${extract}`);
 }
-
 
 // 영화 목록 출력
 function attach(info) {
@@ -95,13 +87,12 @@ function attach(info) {
   card.innerHTML += `${image}`;
 }
 
-
 // 검색 후 ID값 출력
 function ID() {
-   const col = document.querySelectorAll(".col");
-    col.forEach(function (col) {
+  const col = document.querySelectorAll(".col");
+  col.forEach(function (col) {
       col.addEventListener("click", function() {
       alert("id: "+this.id);
       });
-    })
+  })
 }
