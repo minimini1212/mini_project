@@ -8,8 +8,8 @@ let title = [];
 
 // fetch 옵션
 const options = {
-  method: 'GET',
-  headers: {
+    method: 'GET',
+    headers: {
     accept: 'application/json',
     Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMGY3ZWNlZmNlOGE5OTkzMjcxNjgzYTNmOWU4YWRlNyIsInN1YiI6IjY1MmYzNDA4YTgwMjM2MDBmZDJkNDlmMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.1rrCh0VRmKqEgle1KUg65DcMvhupvRf-ZPyDLm_5-DA'
   }
@@ -26,8 +26,8 @@ async function movieList() {
 
   result.forEach((num) => {
    
-    movieinfo.push(num);
-    title.push(num['title']);
+  movieinfo.push(num);
+  title.push(num['title']);
 
   let imageAll = ` <div class="col" id="${num['id']}">
                        <div type ="button" style ="margin: auto 10px; auto 5px; border-radius: 20px; border-color: blue" class="card h-100">
@@ -65,38 +65,38 @@ movieList()
   })
 
 
-  //검색 인풋으로 관련 영화 출력하기
-  function movieSearch(userinput) { 
-    card.innerHTML = ``;
+    //검색 인풋으로 관련 영화 출력하기
+   function movieSearch(userinput) { 
+     card.innerHTML = ``;
     
    
-    movieinfo.forEach(function (info) {
+        movieinfo.forEach(function (info) {
 
-      if(info['title'].toLowerCase().includes(userinput.toLowerCase())){
+           if(info['title'].toLowerCase().includes(userinput.toLowerCase())){
 
-          let image = ` <div class="col" id="${info['id']}">
-                        <div type ="button" style ="margin: auto 10px; auto 5px; border-radius: 20px; border-color: blue" class="card h-100">
-                           <img style ="border-radius: 20px;" src="https://image.tmdb.org/t/p/w500${info['poster_path']}" 
-                           class="ascard-img-top" alt="...">
-                            <div class="cardBody">
-                                <h5 class="cardTitle">${info['title']}</h5>
-                                 <p class="cardText">${info['overview']}</p>
-                                <p class="cardText">${info['vote_average']}</p>
-                            </div>
-                        </div>
-                   </div>`;
-                 card.innerHTML += `${image}`;
+              let image = ` <div class="col" id="${info['id']}">
+                             <div type ="button" style ="margin: auto 10px; auto 5px; border-radius: 20px; border-color: blue" class="card h-100">
+                               <img style ="border-radius: 20px;" src="https://image.tmdb.org/t/p/w500${info['poster_path']}" 
+                               class="ascard-img-top" alt="...">
+                                  <div class="cardBody">
+                                     <h5 class="cardTitle">${info['title']}</h5>
+                                     <p class="cardText">${info['overview']}</p>
+                                     <p class="cardText">${info['vote_average']}</p>
+                                  </div>
+                             </div>
+                            </div>`;
+             card.innerHTML += `${image}`;
           }
-    })
+        })
 
-    // 검색 후 ID값 출력
-  const col = document.querySelectorAll(".col");
-  col.forEach(function (col) {
-    col.addEventListener("click", function() {
-      alert("id: "+this.id);
-    });
-  })
-  }
+      // 검색 후 ID값 출력
+         const col = document.querySelectorAll(".col");
+         col.forEach(function (col) {
+         col.addEventListener("click", function() {
+          alert("id: "+this.id);
+         });
+    })
+    }
 
   
 })
