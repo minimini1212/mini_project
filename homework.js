@@ -26,37 +26,42 @@ async function movieList() {
   movieInfo.push(num);
   title.push(num['title']);
   
-  // 영화 목록 출력 함수 호출
+
+  // 영화 목록 출력 함수 실행 --> 79번째 줄
   attach(num);
   })
 
-  // ID값 출력 함수 호출
+  // ID값 출력 함수 실행 --> 95번째 줄
   ID();
 }
-movieList()
+movieList();
 
-.then(()=> {
-  // 검색하기
-  searchBtn.addEventListener("click", () => {
-  movieSearch(input.value);
-  list(input.value);
-  })
 
-  // 검색 인풋으로 관련 영화 출력하기
-  function movieSearch(userInput) { 
-    card.innerHTML = ``;
-    movieInfo.forEach(function (info) {
-        if(info['title'].toLowerCase().includes(userInput.toLowerCase())){
-          // 영화 목록 출력 함수 호출
-          attach(info);
-        }
-    })
+// 엔터키로 검색하기
+function onClick () {
+  // movieSearch 함수와 list를 실행시키는 함수를 실행 --> 105번째 줄
+  add();
+}
 
-    // ID값 출력 함수 호출
-    ID();
-  }
+// 마우스로 클릭하여 검색하기
+searchBtn.addEventListener("click", () => {
+  // movieSearch 함수와 list를 실행시키는 함수를 실행 --> 105번째 줄
+  add();
 })
-.catch((err) => console.error(err));
+
+
+// 검색 인풋으로 관련 영화 출력하기
+function movieSearch(userInput) { 
+  card.innerHTML = ``;
+  movieInfo.forEach(function (info) {
+      if(info['title'].toLowerCase().includes(userInput.toLowerCase())){
+        // 영화 목록 출력 함수 실행 --> 79번째 줄
+        attach(info);
+      }
+  })
+  // ID값 출력 함수 실행 --> 95번째 줄
+  ID();
+}
 
 // 검색 리스트 출력
 function list(userInput) {
@@ -95,4 +100,10 @@ function ID() {
       alert("id: "+this.id);
       });
   })
+}
+
+//  movieSearch 함수와 list를 실행시키는 함수
+function add () {
+movieSearch(input.value);
+list(input.value);
 }
