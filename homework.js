@@ -44,21 +44,18 @@ async function movieList() {
       card.innerHTML += `${imageAll}`;
   })
 
-
-
-}
-movieList()
-
-
-// 클릭 후 ID값 출력
-.then(()=>{
+  // 첫 화면에서 영화 목록 클린 하면 ID값 출력
   const col = document.querySelectorAll(".col");
   col.forEach(function (col) {
     col.addEventListener("click", function() {
       alert("id: "+this.id);
     });
   })
-})
+
+}
+movieList()
+
+
 
 .then(()=> {
   //검색하기
@@ -91,9 +88,23 @@ movieList()
                  card.innerHTML += `${image}`;
           }
     })
+
+    // 검색 후 ID값 출력
+  const col = document.querySelectorAll(".col");
+  col.forEach(function (col) {
+    col.addEventListener("click", function() {
+      alert("id: "+this.id);
+    });
+  })
   }
+
+  
 })
 .catch((err) => console.error(err));
+
+
+
+
 
 // 검색 리스트 출력
 function list(userinput) {
