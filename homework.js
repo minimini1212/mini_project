@@ -16,8 +16,6 @@ const options = {
 };
 
 
-
-
 //포스터 붙이기
 async function movieList() {
   const response = await fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
@@ -28,30 +26,12 @@ async function movieList() {
    
   movieinfo.push(num);
   title.push(num['title']);
-
-  let imageAll = ` <div class="col" id="${num['id']}">
-                       <div type ="button" style ="margin: auto 10px; auto 5px; border-radius: 20px; border-color: blue" class="card h-100">
-                          <img type ="button" style ="border-radius: 20px;" src="https://image.tmdb.org/t/p/w500${num['poster_path']}" 
-                          class="ascard-img-top" alt="...">
-                           <div class="cardBody">
-                            <h5 class="cardTitle">${num['title']}</h5>
-                            <p class="cardText">${num['overview']}</p>
-                            <p class="cardText">${num['vote_average']}</p>
-                           </div>
-                       </div>
-                     </div>`;
-
-      card.innerHTML += `${imageAll}`;
+  
+  // 영화 목록 출력 함수 호출
+  attach(num);
   })
 
-  // 첫 화면에서 영화 목록 클린 하면 ID값 출력
-  const col = document.querySelectorAll(".col");
-  col.forEach(function (col) {
-    col.addEventListener("click", function() {
-      alert("id: "+this.id);
-    });
-  })
-
+  ID();
 }
 movieList()
 
@@ -65,44 +45,23 @@ movieList()
   })
 
 
-    //검색 인풋으로 관련 영화 출력하기
+  //검색 인풋으로 관련 영화 출력하기
    function movieSearch(userinput) { 
      card.innerHTML = ``;
-    
-   
-        movieinfo.forEach(function (info) {
-
-           if(info['title'].toLowerCase().includes(userinput.toLowerCase())){
-
-              let image = ` <div class="col" id="${info['id']}">
-                             <div type ="button" style ="margin: auto 10px; auto 5px; border-radius: 20px; border-color: blue" class="card h-100">
-                               <img style ="border-radius: 20px;" src="https://image.tmdb.org/t/p/w500${info['poster_path']}" 
-                               class="ascard-img-top" alt="...">
-                                  <div class="cardBody">
-                                     <h5 class="cardTitle">${info['title']}</h5>
-                                     <p class="cardText">${info['overview']}</p>
-                                     <p class="cardText">${info['vote_average']}</p>
-                                  </div>
-                             </div>
-                            </div>`;
-             card.innerHTML += `${image}`;
+      movieinfo.forEach(function (info) {
+          if(info['title'].toLowerCase().includes(userinput.toLowerCase())){
+            // 영화 목록 출력 함수 호출
+            attach(info);
           }
-        })
+      })
 
-      // 검색 후 ID값 출력
-         const col = document.querySelectorAll(".col");
-         col.forEach(function (col) {
-         col.addEventListener("click", function() {
-          alert("id: "+this.id);
-         });
-    })
-    }
+  
+    ID();
+   }
 
   
 })
 .catch((err) => console.error(err));
-
-
 
 
 
@@ -119,5 +78,30 @@ function list(userinput) {
   p.append(`영화리스트 : ${c}`);
 }
 
-  
-  
+
+// 영화 목록 출력
+function attach(info) {
+  let image = ` <div class="col" id="${info['id']}">
+                    <div type ="button" style ="margin: auto 10px; auto 5px; border-radius: 20px; border-color: blue" class="card h-100">
+                        <img style ="border-radius: 20px;" src="https://image.tmdb.org/t/p/w500${info['poster_path']}" 
+                        class="ascard-img-top" alt="...">
+                           <div class="cardBody">
+                              <h5 class="cardTitle">${info['title']}</h5>
+                              <p class="cardText">${info['overview']}</p>
+                              <p class="cardText">${info['vote_average']}</p>
+                           </div>
+                    </div>
+                </div>`;
+  card.innerHTML += `${image}`;
+}
+
+
+// 검색 후 ID값 출력
+function ID() {
+   const col = document.querySelectorAll(".col");
+    col.forEach(function (col) {
+      col.addEventListener("click", function() {
+      alert("id: "+this.id);
+      });
+    })
+}
